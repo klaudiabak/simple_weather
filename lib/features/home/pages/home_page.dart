@@ -8,7 +8,7 @@ import 'package:simple_weather/features/home/cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
-    Key? key,
+    Key? key
   }) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
       create: (context) => HomeCubit(
         WeatherRepository(WeatherRemoteDataSource()),
       ),
-      child: BlocListener<HomeCubit, HomeState>(
+      child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state.status == Status.error) {
             final errorMessage = state.errorMessage ?? 'Unkown error';
@@ -29,7 +29,6 @@ class HomePage extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             final weatherModel = state.model;
             return Scaffold(
@@ -56,7 +55,6 @@ class HomePage extends StatelessWidget {
             );
           },
         ),
-      ),
     );
   }
 }
